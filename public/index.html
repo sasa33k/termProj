@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Films</title>
+</head>
+<body>
+    <div id=content>
+        <h2>Create a Film</h2>
+    
+        <!--<form action='/api/films' method='POST' id="form">-->
+        <form id="form">
+            <label>
+                Title of film
+                <input type="text" name="title" id="form-title"/>
+            </label>
+            <label>
+                Plot summary:
+                <textarea name="summary" id="form-summary"></textarea>
+            </label>
+            <input type="submit" value="submit film">
+        </form>
+    
+        <div id="featured-film"></div>
+    
+        <ul id="all-films"></ul>
+    
+    </div>
+    <!--<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>-->
+    <!--<script type="module" src="/index.js"></script>-->
+    <script type="text/javascript" src="/bundle.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: lavender;
+}
+#content {
+    width:80%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+}
+form {
+    background-color: white;
+    border: 2px solid purple;
+    border-radius: 20px;
+    padding:20px;
+}
+
+form label, form label input, form label textarea{
+    display:block;
+    margin-bottom: 20px;
+    width:100%;
+}
+
+#featured-film {
+    background-color: yellow;
+    text-align: center;
+    color: purple;
+    padding: 30px;
+    margin: 20px;
+}
+#featured-film h1 {
+    text-shadow: 2px 2px rgba(191,191,191,0.6);
+}
+
+#all-films {
+    display: grid;
+    grid-template-columns: 0.25fr 0.25fr 0.25fr 0.25fr;
+    gap: 10px 20px;
+    list-style-type: none;
+    padding-inline-start: 0;
+}
+
+
+#all-films li {
+    display: block;
+    background-color: lavenderblush;
+    border: 2px solid pink;
+    border-radius: 20px;
+    padding: 10px
+}
