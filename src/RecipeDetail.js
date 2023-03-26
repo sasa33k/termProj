@@ -37,50 +37,17 @@ const RecipeDetail = props=>{
     const [recipeDetail, setRecipeDetail] = useState();
     // get recipe detail
     useEffect(()=>{
-        
-
-        axios.get(`/api/recipe/${props.currentRecipe.type}/${props.currentRecipe._id}`)
-        .then(result=>{              
-            {for(const element of result.data.data.ingredient) {element.key = element._id};}
-            console.log(result.data.data);
-
-            const formatedIngredientName = {
-                ...result.data.data,
-                ingredient: result.data.data.ingredient.map(({ ingredient, ...rest }) => ({
-                  ...rest,
-                  ingredientId: ingredient._id,
-                  ingredientName: ingredient.name,
-                  ingredientType: ingredient.type,
-                  ingredientDesc: ingredient.description
-                }))
-              }
-
-
-            setRecipeDetail(formatedIngredientName);
-        })
-        .catch(error=>console.log(error));
+        setRecipeDetail(props.currentRecipe);
        
      },[]);
 
     const [isCurrentInPlanner, setIsCurrentInPlanner] = useState(false);
-    const [triggerPlanner, setTriggerPlanner] = useState(false);
     const handleAdd=()=>{
         let arr = props.recipePlannerList;
         arr.push(recipeDetail)
         console.log(arr);
         props.setRecipePlannerList(arr)
-        setTriggerPlanner(!triggerPlanner)
         setIsCurrentInPlanner(true)
-    }
-    const handleRemove=()=>{
-        let arr = []
-        if( props.recipePlannerList!=undefined && Array.isArray( props.recipePlannerList) && props.recipePlannerList.length > 0){
-            arr = props.recipePlannerList.filter((a)=>a._id != recipeDetail._id);
-        }
-        console.log(arr);
-        props.setRecipePlannerList(arr)
-        setTriggerPlanner(!triggerPlanner)
-        setIsCurrentInPlanner(false)
     }
 
     useEffect(()=>{
@@ -118,7 +85,7 @@ const RecipeDetail = props=>{
             />
            
            {isCurrentInPlanner?
-                <Button onClick={handleRemove} type="dashed">Remove from Planner</Button>:
+                <Button onClick={()=>{props.handleRemove(recipeDetail);setIsCurrentInPlanner(false)}} type="dashed">Remove from Planner</Button>:
                 <Button onClick={handleAdd}>Add to Planner</Button> 
             }
     

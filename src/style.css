@@ -10,6 +10,14 @@ body {
     margin-right: auto;
     max-width: 800px;
 }
+.truncate div{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+            line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
 /* form {
     background-color: white;
     border: 2px solid purple;

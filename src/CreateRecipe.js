@@ -183,7 +183,7 @@ const CreateRecipe = props=>{
                 </Select>
             </Form.Item>
             
-            <Form.Item label="Cooking Time">  <InputNumber min={1} onChange={event=>changeCookingTimeInMinute(event)}/> minutes</Form.Item>
+            <Form.Item label="Cooking Time">  <InputNumber min={0} onChange={event=>changeCookingTimeInMinute(event)}/> minutes</Form.Item>
                 {/* 
                 <IngredientSelection ingredientSubmitResult={props.ingredientSubmitResult} setIngredientSubmitResult={props.setIngredientSubmitResult} setSelectedIngredients={setSelectedIngredients} />
 

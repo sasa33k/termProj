@@ -28,6 +28,17 @@ const getRecipeById = (req,res) => {
     .catch(error=>{res.status(500).send(error)});
 };
 
+
+// get total recipe count
+const getTotalRecipeCount = (req,res) => { 
+    Recipe.count({})
+    .then(result=>{
+        console.log(result);
+        res.status(200).json({data:result});
+    }) 
+    .catch(error=>{res.status(500).send(error)});
+};
+
 // get recipe by type, allow request params: perPage, page, include_description
 const getRecipes = (req,res) => {
     //?perPage=0&page=0&include_description=false
@@ -36,7 +47,6 @@ const getRecipes = (req,res) => {
     let include_description = false;
     if (req.query.page != undefined) page = parseInt(req.query.page);
     if (req.query.perPage != undefined) perPage = parseInt(req.query.perPage);
-    if (req.query.include_description == "true") include_description = true;
     
     // Method 1: Original Method
     // Character.find({"type":req.body.type})
@@ -49,10 +59,8 @@ const getRecipes = (req,res) => {
     // }) 
     // .catch(error=>{console.log(error);res.status(500).send(error)});
     
-    console.log(include_description);
-    
     //Method 2: Use of model static method
-    Recipe.search(req.body.type, perPage, page)
+    Recipe.search(req.body.type, perPage, page-1)
     .then(results=>{
         console.log(results);
         res.status(200).json({data:results});
@@ -79,4 +87,4 @@ const createRecipe = (req,res) => {
     
 };
 
-module.exports = {assignType, getRecipeById, getRecipes, createRecipe};
+module.exports = {assignType, getRecipeById, getTotalRecipeCount, getRecipes, createRecipe};

@@ -1,7 +1,19 @@
 const router = require('express').Router({mergeParams:true});
 // mergeParams option to ensure that your route handlers have access to all endpoint parameters throughout the routing/middleware chain
 
-const {getRecipeById, getRecipes, createRecipe} = require('../controllers/recipeControllers.js');
+const {getRecipeById, getTotalRecipeCount,getRecipes, createRecipe} = require('../controllers/recipeControllers.js');
+
+/**
+ * @openapi
+ * /api/recipe/total:
+ *   get:
+ *    summary: Get Total Count of recipes
+ *    tags: [Recipe]
+ *    responses:
+ *      200:
+ *        description: data retrieved
+ */
+router.get('/total', getTotalRecipeCount);
 
 /**
  * @openapi
@@ -73,6 +85,7 @@ router.get('/:type', getRecipes);
  */
 router.post('/:type', createRecipe);
 
+
 /**
  * @openapi
  * /api/recipe/:
@@ -84,6 +97,10 @@ router.post('/:type', createRecipe);
  *        description: data retried
  */
 router.get('/', getRecipes);
+
+
+
+
 
 
 

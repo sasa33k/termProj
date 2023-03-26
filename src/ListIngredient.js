@@ -3,7 +3,7 @@ const { useState , useEffect } = React;
 import CreateIngredient from './CreateIngredient';
 import axios from 'axios';
 
-import { Form, Input, Select, Button, Space, Cascader } from "antd";
+import { Form, InputNumber, Select, Button, Space, Cascader } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 const units=['gram','ml','tsp','tbsp','unit'];
@@ -70,7 +70,7 @@ const IngredientList  = ( { setIngredientList, ingredientSubmitResult, setIngred
                       />
                     </Form.Item>
                     <Form.Item {...field} key={field.key+"_quantity"} name={[field.name, "quantity"]} >
-                        <Input placeholder="Quantity" onChange={onChange}/>
+                        <InputNumber placeholder="Quantity" min={0} onChange={onChange}/>
                     </Form.Item>
                     <Form.Item {...field} key={field.key+"_unit"} name={[field.name, "unit"]} >
                         <Select onChange={onChange} placeholder="Unit">

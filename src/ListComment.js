@@ -22,7 +22,7 @@ const CommentList  = ( props) => {
 
     return (<div className="comment-list">
         {comments==undefined? "": comments.map(comment =>
-            <Card size="small" title={comment.name} 
+            <Card size="small" title={comment.name}  key={comment._id}
                 extra={<Rate disabled defaultValue={comment.rating} />}>
                 <p>{comment.comment}</p>
              </Card>
