@@ -81,71 +81,71 @@ app.use(express.json({limit: '10mb'}));
 
 
 //https://www.geeksforgeeks.org/upload-and-retrieve-image-on-mongodb-using-mongoose/
-var mongoose = require('mongoose')
-var fs = require('fs');
-var path = require('path');
+// var mongoose = require('mongoose')
+// var fs = require('fs');
+// var path = require('path');
 
-var multer = require('multer');
+// var multer = require('multer');
  
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        // cb(null, 'uploads')
-        cb(null, path.join(__dirname, '/uploads/'));
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
-});
+// var storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         // cb(null, 'uploads')
+//         cb(null, path.join(__dirname, '/uploads/'));
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, file.fieldname + '-' + Date.now())
+//     }
+// });
  
-var upload = multer({ storage: storage });
-var imgModel = require('./models/model');
+// var upload = multer({ storage: storage });
+// var imgModel = require('./models/model');
 
-app.get('/xx', (req, res) => {
+// app.get('/xx', (req, res) => {
 
-    imgModel.findOne({})
-    .exec()
-    .then(result =>{
-        // res.contentType(result.img.contentType);
-        // res.send(result.img.data);
-        res.send(result.img);
-    }).catch(error=>{res.status(500).send(error)});
+//     imgModel.findOne({})
+//     .exec()
+//     .then(result =>{
+//         // res.contentType(result.img.contentType);
+//         // res.send(result.img.data);
+//         res.send(result.img);
+//     }).catch(error=>{res.status(500).send(error)});
 
     
 
-});
-app.post('/xx', upload.single('image'), (req, res, next) => {
+// });
+// app.post('/xx', upload.single('image'), (req, res, next) => {
  
-    var obj = {
-        name: req.body.name,
-        desc: req.body.desc,
-        img:  fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)).toString('base64')
+//     var obj = {
+//         name: req.body.name,
+//         desc: req.body.desc,
+//         img:  fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)).toString('base64')
 
-    }
+//     }
 
 
-    let test = new imgModel(obj); 
+//     let test = new imgModel(obj); 
 
-    test.save()
-    .then(result => {
-        res.render("Xxx");
-    })
-    .catch(error => {res.status(500).send(error)})
+//     test.save()
+//     .then(result => {
+//         res.render("Xxx");
+//     })
+//     .catch(error => {res.status(500).send(error)})
  
-});
+// });
 
-const Post = require('./models/Post') 
-app.post('/yy', async (req, res) => {
+// const Post = require('./models/Post') 
+// app.post('/yy', async (req, res) => {
  
-    const body = req.body;
-    try{
-        const newImage = await Post.create(body)
-        newImage.save();
-        res.status(201).json(result);
-    } catch (error){
-        error => {res.status(500).send(error)}
-    }
+//     const body = req.body;
+//     try{
+//         const newImage = await Post.create(body)
+//         newImage.save();
+//         res.status(201).json(result);
+//     } catch (error){
+//         error => {res.status(500).send(error)}
+//     }
     
-});
+// });
 
 
 
