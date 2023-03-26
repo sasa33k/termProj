@@ -10,18 +10,18 @@ body {
     margin-right: auto;
     max-width: 800px;
 }
-form {
+/* form {
     background-color: white;
     border: 2px solid purple;
     border-radius: 20px;
     padding:20px;
-}
+} */
 
-form label, form label input, form label textarea{
+/* form label, form label input, form label textarea{
     display:block;
     margin-bottom: 20px;
     width:100%;
-}
+} */
 
 #featured-film {
     background-color: yellow;

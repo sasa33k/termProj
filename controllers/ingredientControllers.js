@@ -32,14 +32,35 @@ const getIngredients = (req,res) => {
     if (req.query.include_description == "true") include_description = true;
     
     console.log(include_description);
-    
-    Ingredient.search(req.body.type, include_description, perPage, page)
-    .then(results=>{
-        console.log(results);
-        // if (!include_description) //??? How to properly remove virtuals??
-        //     results = results.map(doc => {let obj = doc.toObject(); delete obj.description; return obj });
-        res.status(200).json({data:results});
-    }) 
+    // {"data": [
+    //     {
+    //       "_id": "vegetables",
+    //       "data": [
+    //         {
+    //           "_id": "641d29a2e37be7c3f23448e6",
+    //           "name": "Something",
+    //           "description": "adfas",
+    //           "type": "vegetables",
+    //           "__v": 0
+    //         }
+    //       ]
+    //     }]}
+    Ingredient.aggregate([
+        {
+            $group: {
+                _id: '$type',
+                ingredients: { $push: '$$ROOT' }
+            }
+        }
+    ])
+    .then(results=>{res.status(200).json({data:results})})
+    // Ingredient.search(req.body.type, include_description, perPage, page)
+    // .then(results=>{
+    //     console.log(results);
+    //     // if (!include_description) //??? How to properly remove virtuals??
+    //     //     results = results.map(doc => {let obj = doc.toObject(); delete obj.description; return obj });
+    //     res.status(200).json({data:results});
+    // }) 
     .catch(error=>{console.log(error);res.status(500).json(error)});
     
     

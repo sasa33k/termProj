@@ -7,6 +7,15 @@ const assignType = (req,res,next) => {
 // get recipe by ID and type
 const getRecipeById = (req,res) => { 
     Recipe.findOne({"_id":req.params.id, "type":req.params.type})
+    .populate({
+        path: 'ingredient',
+        populate: [
+          {
+            path: 'ingredient',
+            select: '-__v',
+          },
+        ],
+      })
     // .select("_id name powers type hp")
     .exec()
     .then(result=>{
@@ -43,11 +52,9 @@ const getRecipes = (req,res) => {
     console.log(include_description);
     
     //Method 2: Use of model static method
-    Recipe.search(req.body.type, include_description, perPage, page)
+    Recipe.search(req.body.type, perPage, page)
     .then(results=>{
         console.log(results);
-        if (!include_description) //??? How to properly remove virtuals??
-            results = results.map(doc => {let obj = doc.toObject(); delete obj.description; return obj });
         res.status(200).json({data:results});
     }) 
     .catch(error=>{console.log(error);res.status(500).send(error)});
@@ -57,7 +64,6 @@ const getRecipes = (req,res) => {
     
 // create recipe with posted information
 const createRecipe = (req,res) => {
-    console.log("xxxx");
     req.body.type = req.params.type;
     let recipe = new Recipe(req.body); 
     console.log(recipe);

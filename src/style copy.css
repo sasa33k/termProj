@@ -1,0 +1,53 @@
+html {
+    font-family: sans-serif;
+    line-height: 2rem;
+}
+
+.app {
+    border:1px solid grey;
+    border-radius: .25rem;
+    max-width:900px;
+    padding:.5rem;
+    margin:auto;
+}
+
+.random-jokes ul {
+    list-style-type: none;
+    padding:0;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:.5rem;
+
+    align-items:start;
+}
+
+.random-jokes li {
+    padding:.5rem;
+    background-color: papayawhip;
+    border-radius:.25rem;
+    height: -webkit-fill-available;
+}
+
+input, select {
+     display: inline-block;
+}
+
+.featured-joke {
+    padding:.5rem;
+    background-color: aliceblue;
+    border-radius:.25rem;
+    border:slateblue 1px solid;
+}
+
+.joke select {
+    margin-left:.5rem;
+}
+
+.joke form {
+    border-top:1px solid brown;
+    padding-top:.5rem;
+    text-align:right;
+}
+.joke form.hide {
+    display:none;
+}
