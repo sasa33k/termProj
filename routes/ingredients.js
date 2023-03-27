@@ -1,4 +1,5 @@
 // locations.js: routing logic for locations.
+const {ingredientValidator} = require('../controllers/validators.js');
 
 const router = require('express').Router({mergeParams:true});
 // mergeParams option to ensure that your route handlers have access to all endpoint parameters throughout the routing/middleware chain
@@ -53,6 +54,6 @@ router.get('/', getIngredients);
  *      200:
  *        description: The ingredient was created
  */
-router.post('/', createIngredient);
+router.post('/',ingredientValidator, createIngredient);
 
 module.exports = router;

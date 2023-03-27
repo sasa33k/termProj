@@ -91,6 +91,7 @@ const RecipeDetail = props=>{
     
             <Title>{recipeDetail.name}</Title>
             <div className="category">{icons[recipeDetail.type]}{recipeDetail.type}</div>
+            <div className="cookingTime">Cooking Time: {recipeDetail.cookingTimeInMinute} </div>
             <div className="description">
                 <Text>{recipeDetail.description}</Text>
             </div>

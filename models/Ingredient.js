@@ -29,7 +29,7 @@ const Schema = mongoose.Schema;
  */
 let IngredientSchema = new Schema({ 
     name: {type: String, required: true, maxlength: 30},
-    description: {type: String, required: false, maxlength: 500},
+    description: {type: String, required: false, minlength:5, maxlength: 500},
     type: {type: String, enum : ['meat','vegetables','other'], required: true, default: 'other'}
 });
 

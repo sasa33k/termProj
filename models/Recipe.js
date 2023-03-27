@@ -26,6 +26,9 @@ const { RecipeIngredientSchema } = require("./RecipeIngredient");
  *         description:
  *           type: string
  *           description: description for the recipe,  max length 300
+ *         image:
+ *           type: string
+ *           description: base64 image
  *         type:
  *           type: string
  *           enum: ['main','side','desert','other']

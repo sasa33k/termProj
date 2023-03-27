@@ -24,9 +24,9 @@ const addCommentToRecipeById = (req,res) => {
         .then(result=>{
             res.set('content-location', `${req.originalUrl}/${result._id}`);
             res.status(201).json({ data: result, url:`${req.originalUrl}/${result._id}`});
-        }) 
+        }).catch(error=>{res.status(500).json(error)});
     })
-    .catch(error=>{console.log("Error!",error);res.status(500).json(error)});
+    .catch(error=>{res.status(500).json(error)});
     
 };
 

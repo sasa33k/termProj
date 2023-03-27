@@ -1,4 +1,5 @@
 const router = require('express').Router({mergeParams:true});
+const {recipeValidator} = require('../controllers/validators.js');
 // mergeParams option to ensure that your route handlers have access to all endpoint parameters throughout the routing/middleware chain
 
 const {getRecipeById, getTotalRecipeCount,getRecipes, createRecipe} = require('../controllers/recipeControllers.js');
@@ -83,7 +84,7 @@ router.get('/:type', getRecipes);
  *      200:
  *        description: The recipe was created
  */
-router.post('/:type', createRecipe);
+router.post('/:type',recipeValidator, createRecipe);
 
 
 /**

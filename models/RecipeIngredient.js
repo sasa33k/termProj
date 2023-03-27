@@ -10,8 +10,9 @@ const { IngredientSchema } = require("./Ingredient");
  *     RecipeIngredient:
  *       type: object
  *       required:
- *         - name
- *         - type
+ *         - ingredient
+ *         - quantity
+ *         - unit
  *       properties:
  *         ingredient:
  *           type: string
@@ -21,11 +22,11 @@ const { IngredientSchema } = require("./Ingredient");
  *           description: Quantity of the ingredient for this recipe, non-negative
  *         unit:
  *           type: string
- *           enum: ['gram','ml','tsp','tbsp']
+ *           enum: ['gram','ml','tsp','tbsp','unit']
  *           description: unit  
  *       example:
  *         ingredient: Chicken
- *         quantity: 100
+ *         quantity: 100 
  *         unit: gram
  */
 let RecipeIngredientSchema = new Schema({ 

@@ -20,8 +20,9 @@ const StepList  = ( { setStepList, recipeForm}) => {
             <>
                 {fields.map((field, index) => (
                 <Space.Compact key={field.key} align="baseline" block>
-                    <Form.Item {...field} key={field.key} name={[field.name, "step"] } style={{ width:"90%" }} >
-                        <Input placeholder={"Step "+(field.key+1)} onChange={onChange}/>
+                    <Form.Item {...field} key={field.key} name={[field.name, "step"] } style={{ width:"90%" }} 
+                    rules={[{ required: true, message: 'Please enter a step' }]}>
+                        <Input placeholder={"Step "+(index+1)} onChange={onChange}/>
                     </Form.Item>
                     <MinusCircleOutlined onClick={() => remove(field.name)} style={{ width:"10%", height:"min-content", padding:"10px"}}/>
                 </Space.Compact>

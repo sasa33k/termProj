@@ -37,9 +37,8 @@ const { TextArea } = Input;
 
 const { useState , useEffect } = React;
 const CreateRecipe = props=>{ 
-    const xx = Form.useWatch('steps', recipeForm);
 
-    const [img, setImg] = useState({myFile:""});
+    const [img, setImg] = useState("");
     // State for Ingredients
     const [selectedIngredients, setSelectedIngredients] = useState([]);
 
@@ -102,31 +101,40 @@ const CreateRecipe = props=>{
     //!!!###??? add API to get Type List
 
     // handle form submission
-    const submitRecipe = values => { 
-        // event.preventDefault();
-        console.log({name:name, description:description, image:img, type:type, cookingTimeInMinute:cookingTimeInMinute, ingredient:ingredientList , step:stepList})
+    const submitRecipe = async (values) => { 
 
-        axios.post(`/api/Recipe/${type}`, {name:name, description:description, image:img, cookingTimeInMinute:cookingTimeInMinute, ingredient:ingredientList , step:stepList}, 
-        {  headers: {'Content-Type': 'application/json'}})
-        .then(results => {
-            props.setRecipeSubmitResult(results);
-            console.log("post", results)
-            setModalContent("Recipe Created successfully! View it now?")
-            setModalDetail("")
-            setIsModalOpen(true);
-        })
-        .catch(error=>{
-            setModalContent(error.message)
-            let err=error.response.data.errors
-            try{
-                setModalDetail(Object.keys(err).map(key => `<li>${key}: ${err[key].message}</li>`))
-            }catch{
-                setModalDetail(JSON.stringify(error))
-            }
-            
-            setIsModalOpen(true);
-            console.log("error",error)
-        })
+        try {
+            const values = await recipeForm.validateFields();
+            console.log('Success:', values);
+                    // event.preventDefault();
+            console.log({name:name, description:description, image:img, type:type, cookingTimeInMinute:cookingTimeInMinute, ingredient:ingredientList , step:stepList})
+
+            axios.post(`/api/Recipe/${type}`, {name:name, description:description, image:img, cookingTimeInMinute:cookingTimeInMinute, ingredient:ingredientList , step:stepList.length==1&&stepList[0].length==0?[]:stepList}, 
+            {  headers: {'Content-Type': 'application/json'}})
+            .then(results => {
+                props.setRecipeSubmitResult(results);
+                console.log("post", results)
+                setModalContent("Recipe Created successfully! View it now?")
+                setModalDetail("")
+                setIsModalOpen(true);
+            })
+            .catch(error=>{
+                setModalContent(error.message)
+                let err=error.response.data.errors
+                try{
+                    setModalDetail(Object.keys(err).map(key => `<li>${key}: ${err[key].message}</li>`))
+                }catch{
+                    setModalDetail(JSON.stringify(error.response.data))
+                }
+                
+                setIsModalOpen(true);
+                console.log("error",error)
+            })
+        } catch (errorInfo) {
+            console.log('Failed:', errorInfo);
+        }
+
+
     }
 
     //https://stackoverflow.com/questions/55238215/ant-design-upload-get-file-content
@@ -147,16 +155,18 @@ const CreateRecipe = props=>{
             <ResultModal setIsModalOpen={setIsModalOpen} modalTitle={""} modalContent={modalContent} modalDetail={modalDetail}
             onOK={()=>{if(props.recipeSubmitResult.status==201)props.navCurrentRecipe(props.recipeSubmitResult.data.data)}} onCancel={()=>{console.log("cancel")}}/>
         }
-        <Form  id="createRecipe" form={ recipeForm } 
+        <Form  id="createRecipe" form={ recipeForm } name="recipeForm"
             onFinish={event=>submitRecipe(event)}
         // onFinishFailed={onFinishFailed}
             labelCol={{ span: 6 }} wrapperCol={{ span: 20 }} layout="horizontal" style={{ maxWidth: 600 }}
         >
-            <Form.Item label="Name"> <Input onChange={event=>changeName(event)}/>  </Form.Item>
+            <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input recipe name!' }]}> 
+                <Input onChange={event=>changeName(event)}/>  
+            </Form.Item>
             
             <Form.Item label="Cover Image"> 
                 {/* <Upload onChange={handleFileUpload}> */}
-                <Upload  accept=".png" showUploadList={true}
+                <Upload  accept=".png" showUploadList={true} maxCount={1}
                     beforeUpload={file => {
                         const reader = new FileReader();
 
@@ -175,31 +185,23 @@ const CreateRecipe = props=>{
 
             <Form.Item label="Description">  <TextArea rows={4} onInput={event=>changeDescription(event)}/> </Form.Item>
 
-            <Form.Item label="Recipe Type" >
+            <Form.Item label="Recipe Type"  name="type" rules={[{ required: true, message: 'Please select recipe type!' }]}> 
                 <Select onChange={event => changeType(event)}>
                     {typeList !=undefined? typeList.map((option) => (
                         <Select.Option key={option} value={option}>{option}</Select.Option>
                     )):''}
                 </Select>
             </Form.Item>
-            
-            <Form.Item label="Cooking Time">  <InputNumber min={0} onChange={event=>changeCookingTimeInMinute(event)}/> minutes</Form.Item>
-                {/* 
-                <IngredientSelection ingredientSubmitResult={props.ingredientSubmitResult} setIngredientSubmitResult={props.setIngredientSubmitResult} setSelectedIngredients={setSelectedIngredients} />
+    
+            <Form.Item label="Cooking Time" > 
+                 <InputNumber min={0} onChange={event=>changeCookingTimeInMinute(event)}/> minutes</Form.Item>
 
-                
-
-                {stepList.map((singleStep, index) => (<>
-                    <StepList index={index} value={singleStep} name={"Step "+{index}}  onChange={changeStepList} addStep={addStep} removeStep={removeStep} stepList={stepList}/>
-                </>))} */}
-
-            <Form.Item label="Ingredients"> 
+            <Form.Item label="Ingredients" rules={[{ required: true, message: 'Please input ingredients!' }]}> 
                 <IngredientList setIngredientList={setIngredientList} ingredientSubmitResult={props.ingredientSubmitResult} setIngredientSubmitResult={props.setIngredientSubmitResult} recipeForm={recipeForm}/>
             </Form.Item>
             <Form.Item label="Steps"> 
                 <StepList setStepList={setStepList} recipeForm={recipeForm}/>
-            </Form.Item>
-                {console.log(xx)}
+            </Form.Item> 
             <Button type="primary" htmlType="submit">Submit Recipe</Button>
        </Form>
             

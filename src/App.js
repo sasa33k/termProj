@@ -24,6 +24,14 @@ const App = props=>{
 
     const [currentPage, setCurrentPage] = useState(pages[0]);
     const [currentRecipe, setCurrentRecipe] = useState();
+    const navCurrentPartialRecipe = (recipe) => {
+        getRecipeDetail(recipe)
+        .then(result =>{
+            setCurrentRecipe(result);
+            setCurrentPage(hiddenPage[0]);
+        })
+        .catch(error => { console.log(error);})
+    }
     const navCurrentRecipe = (recipe) => {
         setCurrentRecipe(recipe);
         setCurrentPage(hiddenPage[0]);
@@ -147,7 +155,7 @@ const App = props=>{
 
                     {currentPage.key == "newRecipe"?
                         <CreateRecipe ingredientSubmitResult={ ingredientSubmitResult } setIngredientSubmitResult={setIngredientSubmitResult} 
-                        recipeSubmitResult={ recipeSubmitResult } setRecipeSubmitResult={ setRecipeSubmitResult }  navCurrentRecipe={navCurrentRecipe}/>:""
+                        recipeSubmitResult={ recipeSubmitResult } setRecipeSubmitResult={ setRecipeSubmitResult }  navCurrentRecipe={navCurrentPartialRecipe}/>:""
                     }
 
                     

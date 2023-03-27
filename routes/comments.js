@@ -2,6 +2,7 @@ const router = require('express').Router({mergeParams:true});
 // mergeParams option to ensure that your route handlers have access to all endpoint parameters throughout the routing/middleware chain
 
 const {getCommentsOfRecipeById, addCommentToRecipeById} = require('../controllers/commentControllers.js');
+const {commentValidator} = require('../controllers/validators.js');
 
 
 /**
@@ -46,6 +47,6 @@ router.get('/:id', getCommentsOfRecipeById);
  *      200:
  *        description: The comment was created
  */
-router.post('/:id', addCommentToRecipeById);
+router.post('/:id', commentValidator, addCommentToRecipeById);
 
 module.exports = router;

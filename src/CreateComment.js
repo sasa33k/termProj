@@ -1,6 +1,7 @@
 //this component should display a list of all playlists, fetched from the API
 import React from 'react';
 import axios from 'axios';
+import ResultModal from './ResultModal';
 
 import { Button, Rate, Form, Input } from 'antd';
 const { TextArea } = Input;
@@ -20,7 +21,12 @@ const CreateComment =  (props) => {
           console.log("post comment: ", results)
           props.setCommentSubmitResult(results);
       })
-      .catch(error=>console.log("error",error))
+      .catch(error=>{
+        
+        setModalContent(error.message)
+        setModalDetail(JSON.stringify(error.response.data))
+        setIsModalOpen(true);
+        console.log("error",error)})
 
     };
 
@@ -42,7 +48,16 @@ const CreateComment =  (props) => {
       setRate(value);
     }
 
+  
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalContent, setModalContent] = useState("");
+    const [modalDetail, setModalDetail] = useState("");
+
 	return (<div id="comment-form">
+        {!isModalOpen?"":
+            <ResultModal setIsModalOpen={setIsModalOpen} modalTitle={""} modalContent={modalContent} modalDetail={modalDetail}
+            onOK={()=>{console.log("OK")}} onCancel={()=>{console.log("cancel")}}/>
+        }
         <h2>Comments</h2>
 
         <Form  id="createComment" form={ form } 

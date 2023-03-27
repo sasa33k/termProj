@@ -11,12 +11,27 @@ const units=['gram','ml','tsp','tbsp','unit'];
 const IngredientList  = ( { setIngredientList, ingredientSubmitResult, setIngredientSubmitResult , recipeForm}) => {
     const onChange = (event) => {
         const arr = []
-        recipeForm.getFieldValue('ingredients').forEach(element => {
-          const list = new Map();
-          list.set('ingredient', element.ingredient[1]);
-          list.set('quantity', element.quantity);
-          list.set('unit', element.unit);
-          arr.push(Object.fromEntries(list));
+        recipeForm.getFieldValue('ingredients').forEach((element,index, xx) => {
+          if(element==undefined){
+            const list = new Map();
+            list.set('ingredient', undefined);
+            list.set('quantity', undefined);
+            list.set('unit', undefined);
+            list.set('isRequired', false);
+            arr.push(Object.fromEntries(list));
+          } else{
+            const list = new Map();
+            if(element.ingredient!=undefined) {
+              list.set('ingredient', element.ingredient[1]);
+              list.set('isRequired', true);
+            } else {
+              list.set('isRequired', false)
+            }
+            list.set('quantity', element.quantity);
+            list.set('unit', element.unit);
+            arr.push(Object.fromEntries(list));
+            console.log("e",index, Object.fromEntries(list))
+          }
         });
         console.log(arr);
         setIngredientList(arr);
@@ -54,25 +69,34 @@ const IngredientList  = ( { setIngredientList, ingredientSubmitResult, setIngred
      
    },[ingredientSubmitResult]);
 
-
+    const filter = (inputValue, path) =>
+      path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
+    //https://ant.design/components/cascader
 
     return (<>
         <Form.List name="ingredients">
             {(fields, { add, remove }) => (
             <>
+            
+
                 {fields.map((field, index) => (
-                <Space key={field.key} style={{ display: "flex", marginBottom: 8 }} align="baseline">
-                    <Form.Item {...field} key={field.key+"_ingredient"} name={[field.name, "ingredient"]} >
+                <Space key={field.key} size={[8, 0]} wrap>
+                    <Form.Item {...field} key={field.key+"_ingredient"} name={[field.name, "ingredient"]} 
+                      rules={[{ required: true, message: 'Please select an ingredient' }]}>
                       <Cascader
                         options={ingredientOptions}
                         onChange={onChange}
                         placeholder="Ingredient"
+                        showSearch={{ filter }}
+                        onSearch={(value) => console.log(value)}
                       />
-                    </Form.Item>
-                    <Form.Item {...field} key={field.key+"_quantity"} name={[field.name, "quantity"]} >
+                    </Form.Item>{console.log(field.isRequired)}
+                    <Form.Item {...field} key={field.key+"_quantity"} name={[field.name, "quantity"]} 
+                    rules={[{ required: field.isRequired, message: 'Please input quantity' }]}>
                         <InputNumber placeholder="Quantity" min={0} onChange={onChange}/>
                     </Form.Item>
-                    <Form.Item {...field} key={field.key+"_unit"} name={[field.name, "unit"]} >
+                    <Form.Item {...field} key={field.key+"_unit"} name={[field.name, "unit"]} 
+                    rules={[{ required: field.isRequired, message: 'Please select unit' }]}>
                         <Select onChange={onChange} placeholder="Unit">
                             {units !=undefined? units.map((option) => (
                                 <Select.Option key={option} value={option}>{option}</Select.Option>

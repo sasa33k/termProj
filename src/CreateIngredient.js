@@ -36,7 +36,7 @@ const CreateIngredient =  (props) => {
       .catch(error=>{
         console.log("error",error)
         setResultModalContent(error.message)
-        setResultModalDetail(JSON.stringify(error))
+        setResultModalDetail(JSON.stringify(error.response.data))
         setIsResultModalOpen(true)
         setConfirmLoading(false);
       })
