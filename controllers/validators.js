@@ -15,12 +15,12 @@ const commentValidator = (req, res, next) => {
 		properties:{
 			name:{ type: 'string', transform: ['trim'], minLength: 3, maxLength: 10,
 				errorMessage :{minLength:"AJV: Name too short!", maxLength: "AJV: Name too long!"}},
-			rate:{ 	type:'number', minimum:0, maximum:5,
+				rating:{ 	type:'number', minimum:0, maximum:5,
                 errorMessage :{type:"AJV: Number Only!", minimum:"AJV: Rate too low!", maximum: "AJV: Rate too high!"}},
 			comment:{ 	type:'string', minLength:5, maxLength:250,
                 errorMessage :{minLength:"AJV: Comment too short!", maxLength: "AJV: Comment too long!"}},
 		},
-		required: ['name','rate'],  // ** empty string is "ok" for the validator => check minLength
+		required: ['name','rating'],  // ** empty string is "ok" for the validator => check minLength
 		additionalProperties: true, // allow additional properties to pass it, will not fail
 		errorMessage :{
 			required:{ 'name':'AJV: Name is required!', 'rate': 'AJV: Rate is required!'}

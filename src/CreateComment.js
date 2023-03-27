@@ -14,7 +14,7 @@ const CreateComment =  (props) => {
     const [form] = Form.useForm();
 
     const handleCreate = () => {
-      console.log("xx", props.recipeId)
+      console.log("xx", {name:name, comment:comment, rating:rate})
 
       axios.post(`/api/comment/${props.recipeId}`, {name:name, comment:comment, rating:rate}, {  headers: {'Content-Type': 'application/json'}})
       .then(results => {
