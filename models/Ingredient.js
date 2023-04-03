@@ -17,7 +17,7 @@ const Schema = mongoose.Schema;
  *           description: The name of the ingredient, max length 30
  *         description:
  *           type: string
- *           description: Description for the ingredient,  max length 500
+ *           description: Description for the ingredient,  length 5-500
  *         type:
  *           type: number
  *           enum: ['meat','vegetables','other']

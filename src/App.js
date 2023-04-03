@@ -11,12 +11,12 @@ import { HomeOutlined, UnorderedListOutlined, UploadOutlined, FormOutlined, Like
 import { Layout, Menu, theme } from 'antd';
 const { Header, Content } = Layout;
 
-const pages = [{label:'Home', key:'home', icon: <HomeOutlined />}, 
-               {label:'Recipe Index', key:'recipes',  icon: <UnorderedListOutlined />}, 
-               {label:'Submit Recipe', key:'newRecipe',  icon: <UploadOutlined />},
-               {label:'Grocery Planner', key:'planner',  icon: <FormOutlined />}];
+const pages = [{label:'Home', key:'home', menukey:'home', icon: <HomeOutlined />}, 
+               {label:'Recipe Index', key:'recipes',  menukey:'recipes', icon: <UnorderedListOutlined />}, 
+               {label:'Submit Recipe', key:'newRecipe',  menukey:'newRecipe', icon: <UploadOutlined />},
+               {label:'Grocery Planner', key:'planner',  menukey:'planner', icon: <FormOutlined />}];
 
-const hiddenPage = [{label:'Recipe Detail', key:'recipe', icon: <UnorderedListOutlined />}];
+const hiddenPage = [{label:'Recipe Detail', key:'recipe', menukey:'recipes', icon: <UnorderedListOutlined />}];
 
 const App = props=>{ 
     // Handle navigations
@@ -98,8 +98,8 @@ const App = props=>{
                     >
                     <LikeOutlined style={{  float: 'left',  padding: '8px'}}/> </div>
                     <Menu theme="dark" mode="horizontal"
-                    defaultSelectedKeys={['home']}
-                    items={pages} onClick={(e) => {setCurrentPage(e)}}
+                    defaultSelectedKeys={['home']} selectedKeys={currentPage.menukey}
+                    items={pages} onClick={(e) => {setCurrentPage(pages.filter(page=> page.key==e.key)[0]); console.log(currentPage)}}
                     />
                 </Header>
 

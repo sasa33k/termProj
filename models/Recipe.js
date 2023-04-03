@@ -22,10 +22,7 @@ const { RecipeIngredientSchema } = require("./RecipeIngredient");
  *       properties:
  *         name:
  *           type: string
- *           description: The name of the recipe, length between 3-30
- *         description:
- *           type: string
- *           description: description for the recipe,  max length 300
+ *           description: The name of the recipe, length between 3-50
  *         image:
  *           type: string
  *           description: base64 image
@@ -33,6 +30,9 @@ const { RecipeIngredientSchema } = require("./RecipeIngredient");
  *           type: string
  *           enum: ['main','side','desert','other']
  *           description: Recipe type
+ *         description:
+ *           type: string
+ *           description: description for the recipe,  max length 300
  *         cookingTimeInMinute:
  *           type: number
  *           description: Cooking time in minute, >=0
@@ -42,7 +42,7 @@ const { RecipeIngredientSchema } = require("./RecipeIngredient");
  *         step:
  *           type: array
  *           items:
- *             type: object
+ *             type: string
  *             description: steps with length 3-300
  *         comments:
  *           type: array

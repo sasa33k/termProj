@@ -37,6 +37,16 @@ h1.ant-typography{
 #comment-form{
     margin: 40px 0 ;
 }
+
+.ant-image-img, :where(.css-dev-only-do-not-override-xpslj5).ant-image .ant-image-img {
+    object-fit:contain;
+    width:auto;
+}
+
+.ant-card-cover .ant-image-img {
+    object-fit:cover;
+    width: 100%;
+}
 @media only screen and (max-width: 480px) {
     .info{
         float:none;
