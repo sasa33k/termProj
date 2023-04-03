@@ -1,19 +1,14 @@
+// This component shows home page content (static text)
 import React from 'react';
-import axios from 'axios';
-import CreateComment from './CreateComment';
-import CommentList from './ListComment'
-const { useState , useEffect } = React;
-import { Typography, Button, List, Table, Image } from 'antd';
-import { StarOutlined, SmileOutlined, HeartOutlined, SearchOutlined } from '@ant-design/icons';
-
-
 
 const Home = props=>{ 
 
-
-
     return ( <>
-        <h1>Home Page (Pending)</h1>
+        <h2>Welcome!</h2>
+        <p>Welome to The Ultimate Recipe Hub!</p>
+        <p>Are you running out of culinary inspiration and struggling to come up with a delicious dinner idea that fits your busy schedule and limited ingredients? We've got your back! Our Recipe Hub is here to take the stress out of meal planning and grocery shopping, so you can enjoy cooking and experimenting with new flavors. Let's get creative in the kitchen together!</p>
+        
+        <p>Brief Overview of our site:</p>
         <ul>
             <li>Recipe Index Page
                 <ul>
@@ -36,7 +31,6 @@ const Home = props=>{
                     <li>Recipe cards - Actions to navigate to recipe detail or remove from Grocery Planner</li>
                 </ul>
             </li>
-
         </ul>
     </>
     )

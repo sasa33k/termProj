@@ -1,3 +1,4 @@
+// This component allow adding ingredients (item name, quantity, and unit) correspond to a recipe (used in create recipe page)
 import React from 'react';
 const { useState , useEffect } = React;
 import CreateIngredient from './CreateIngredient';
@@ -9,9 +10,9 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 const units=['gram','ml','tsp','tbsp','unit'];
 // Reference: https://codesandbox.io/s/heuristic-roentgen-mu0ot?file=/src/GroupForm.js
 const IngredientList  = ( { setIngredientList, ingredientSubmitResult, setIngredientSubmitResult , recipeForm}) => {
-    const onChange = (event) => {
+    const onListChange = () => {
         const arr = []
-        recipeForm.getFieldValue('ingredients').forEach((element,index, xx) => {
+        recipeForm.getFieldValue('ingredients').forEach((element,index) => {
           if(element==undefined){
             const list = new Map();
             list.set('ingredient', undefined);
@@ -30,7 +31,6 @@ const IngredientList  = ( { setIngredientList, ingredientSubmitResult, setIngred
             list.set('quantity', element.quantity);
             list.set('unit', element.unit);
             arr.push(Object.fromEntries(list));
-            console.log("e",index, Object.fromEntries(list))
           }
         });
         console.log(arr);
@@ -77,15 +77,13 @@ const IngredientList  = ( { setIngredientList, ingredientSubmitResult, setIngred
         <Form.List name="ingredients">
             {(fields, { add, remove }) => (
             <>
-            
-
                 {fields.map((field, index) => (
                 <Space key={field.key} size={[8, 0]} wrap>
                     <Form.Item {...field} key={field.key+"_ingredient"} name={[field.name, "ingredient"]} 
                       rules={[{ required: true, message: 'Please select an ingredient' }]}>
                       <Cascader
                         options={ingredientOptions}
-                        onChange={onChange}
+                        onChange={onListChange}
                         placeholder="Ingredient"
                         showSearch={{ filter }}
                         onSearch={(value) => console.log(value)}
@@ -93,17 +91,17 @@ const IngredientList  = ( { setIngredientList, ingredientSubmitResult, setIngred
                     </Form.Item>{console.log(field.isRequired)}
                     <Form.Item {...field} key={field.key+"_quantity"} name={[field.name, "quantity"]} 
                     rules={[{ required: field.isRequired, message: 'Please input quantity' }]}>
-                        <InputNumber placeholder="Quantity" min={0} onChange={onChange}/>
+                        <InputNumber placeholder="Quantity" min={0} onChange={onListChange}/>
                     </Form.Item>
                     <Form.Item {...field} key={field.key+"_unit"} name={[field.name, "unit"]} 
                     rules={[{ required: field.isRequired, message: 'Please select unit' }]}>
-                        <Select onChange={onChange} placeholder="Unit">
+                        <Select onChange={onListChange} placeholder="Unit">
                             {units !=undefined? units.map((option) => (
                                 <Select.Option key={option} value={option}>{option}</Select.Option>
                             )):''}
                         </Select>
                     </Form.Item>
-                    <MinusCircleOutlined onClick={() => remove(field.name)} />
+                    <MinusCircleOutlined onClick={() => {remove(field.name); onListChange();}} />
                 </Space>
                 ))}
                 <Form.Item>

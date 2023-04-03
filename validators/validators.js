@@ -13,11 +13,11 @@ const commentValidator = (req, res, next) => {
 	let schema = {
         type: 'object',
 		properties:{
-			name:{ type: 'string', transform: ['trim'], minLength: 3, maxLength: 10,
+			name:{ type: 'string', transform: ['trim'], minLength: 3, maxLength: 30,
 				errorMessage :{minLength:"AJV: Name too short!", maxLength: "AJV: Name too long!"}},
 				rating:{ 	type:'number', minimum:0, maximum:5,
                 errorMessage :{type:"AJV: Number Only!", minimum:"AJV: Rate too low!", maximum: "AJV: Rate too high!"}},
-			comment:{ 	type:'string', minLength:5, maxLength:250,
+			comment:{ 	type:'string', minLength:5, maxLength:300,
                 errorMessage :{minLength:"AJV: Comment too short!", maxLength: "AJV: Comment too long!"}},
 		},
 		required: ['name','rating'],  // ** empty string is "ok" for the validator => check minLength
@@ -45,7 +45,7 @@ const ingredientValidator = (req, res, next) => {
 	let schema = {
         type: 'object',
 		properties:{
-			name:{ type: 'string', transform: ['trim'], minLength: 3, maxLength: 10,
+			name:{ type: 'string', transform: ['trim'], minLength: 3, maxLength: 30,
 				errorMessage :{minLength:"AJV: Name too short!", maxLength: "AJV: Name too long!"}},
 		},
 		required: ['name'],
@@ -75,7 +75,7 @@ const recipeValidator = (req, res, next) => {
 	let schema = {
         type: 'object',
 		properties:{
-			name:{ type: 'string', transform: ['trim'], minLength: 3, maxLength: 10,
+			name:{ type: 'string', transform: ['trim'], minLength: 3, maxLength: 50,
 				errorMessage :{minLength:"AJV: Name too short!", maxLength: "AJV: Name too long!"}},
 		},
 		required: ['name'],

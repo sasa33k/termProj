@@ -7,11 +7,9 @@ import RecipeIndex from './RecipeIndex';
 import RecipeDetail from './RecipeDetail';
 import GroceryPlanner from './GroceryPlanner';
 
-// import AppMenu from './Menu';
-
-import { MenuFoldOutlined, MenuUnfoldOutlined,HomeOutlined, UnorderedListOutlined, UploadOutlined, FormOutlined } from '@ant-design/icons';
-import { Layout, Menu, theme, Typography } from 'antd';
-const { Header, Sider, Content } = Layout;
+import { HomeOutlined, UnorderedListOutlined, UploadOutlined, FormOutlined, LikeOutlined } from '@ant-design/icons';
+import { Layout, Menu, theme } from 'antd';
+const { Header, Content } = Layout;
 
 const pages = [{label:'Home', key:'home', icon: <HomeOutlined />}, 
                {label:'Recipe Index', key:'recipes',  icon: <UnorderedListOutlined />}, 
@@ -21,7 +19,7 @@ const pages = [{label:'Home', key:'home', icon: <HomeOutlined />},
 const hiddenPage = [{label:'Recipe Detail', key:'recipe', icon: <UnorderedListOutlined />}];
 
 const App = props=>{ 
-
+    // Handle navigations
     const [currentPage, setCurrentPage] = useState(pages[0]);
     const [currentRecipe, setCurrentRecipe] = useState();
     const navCurrentPartialRecipe = (recipe) => {
@@ -36,6 +34,8 @@ const App = props=>{
         setCurrentRecipe(recipe);
         setCurrentPage(hiddenPage[0]);
     }
+
+    // function to get recipe detail shared by multiple pages
     const getRecipeDetail = async (currentRecipe) => {
         return axios.get(`/api/recipe/${currentRecipe.type}/${currentRecipe._id}`)
         .then(result => {
@@ -56,32 +56,13 @@ const App = props=>{
           console.log(error);
           throw error;
         });
-        // .then(result=>{              
-        //     {for(const element of result.data.data.ingredient) {element.key = element._id};}
-        //     console.log(result.data.data);
-
-        //     const formatedIngredientName = {
-        //         ...result.data.data,
-        //         ingredient: result.data.data.ingredient.map(({ ingredient, ...rest }) => ({
-        //           ...rest,
-        //           ingredientId: ingredient._id,
-        //           ingredientName: ingredient.name,
-        //           ingredientType: ingredient.type,
-        //           ingredientDesc: ingredient.description
-        //         }))
-        //       }
-
-
-        //     setRecipeDetail(formatedIngredientName);
-        //     console.log("YYY" , formatedIngredientName);
-        //     return(formatedIngredientName);
-        // })
-        // .catch(error=>{console.log(error); return (error)});
 
     } 
 
+    // Grocery Planner states
     const [recipePlannerList, setRecipePlannerList] = useState([]);
 
+    // Recipe in Grocery Planner remove function
     const handleRemove=(currentRecipe)=>{
         let arr = []
         if( recipePlannerList!=undefined && Array.isArray( recipePlannerList) && recipePlannerList.length > 0){
@@ -89,9 +70,7 @@ const App = props=>{
         }
         console.log(arr);
         setRecipePlannerList(arr)
-        // setAddToPlannerResult(arr)
     }
-   
 
     // State for FormSubmission
     const [ingredientSubmitResult, setIngredientSubmitResult] = useState("");
@@ -105,49 +84,28 @@ const App = props=>{
 
     const [collapsed, setCollapsed] = useState(false);
     
-
+    
 
 	return (
         <Layout>
-             {/* hasSider> */}
-            
-            {/* <Sider trigger={null} theme ="dark" collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}
-            style={{ overflow: 'auto', height: '100vh'}}>
-                <div className="logo" />
-                <Menu mode="inline" onClick={(e) => {setCurrentPage(e)}}
-                    defaultSelectedKeys={['home']}  items={pages} theme ="dark" 
-                />
-            </Sider> */}
             <Layout className="site-layout">
-                {/* <Header style={{  padding: 0, background: colorPrimaryBg}}> */}
-                    {/* <div style={{ display:'inline', margin: 30}}>
-                    {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-                        className: 'trigger',
-                        onClick: () => setCollapsed(!collapsed),
-                    })}
-                    </div> */}
-                    {/* <Typography.Title style={{ display:'inline'}} level={3}>The Ultimate Recipe Hub</Typography.Title>
-                    <div className="logo" />
-                        <Menu mode="horizontal" onClick={(e) => {setCurrentPage(e)}}
-                            defaultSelectedKeys={['home']}  items={pages} theme ="dark" 
-                        />
-                </Header> */}
 
                 <Header style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%' }}>
                     <div
                     style={{  float: 'left',  width: 30,
-                        height: 31,   margin: '16px 24px 16px 0', background: 'rgba(255, 255, 255, 0.2)',
+                        height: 31,   margin: '16px 24px 16px 0', background: 'rgba(193, 145, 247, 0.8)',
                     }}
-                    />
+                    >
+                    <LikeOutlined style={{  float: 'left',  padding: '8px'}}/> </div>
                     <Menu theme="dark" mode="horizontal"
                     defaultSelectedKeys={['home']}
                     items={pages} onClick={(e) => {setCurrentPage(e)}}
                     />
                 </Header>
-                <Content style={{ margin: '24px 16px', padding: 24, minHeight: 280, 
-                }} >
+
+                {/* Handle page components mount / unmount */}
+                <Content style={{ margin: '24px 16px', padding: 24, minHeight: 280, }} >
                     <h1>The Ultimate Recipe Hub</h1>
-                    <h3>{currentPage.key}</h3>
 
                     {currentPage.key == "home"?
                         <Home/> :""
@@ -177,8 +135,6 @@ const App = props=>{
                             navCurrentRecipe={navCurrentRecipe} handleRemove={handleRemove}/>:""
                     }
 
-
-                    
                 </Content>
             </Layout>
         </Layout>

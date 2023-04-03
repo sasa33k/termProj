@@ -1,7 +1,8 @@
+// This component lists all recipes in the database
 import React from 'react';
 import axios from 'axios';
 const { useState , useEffect } = React;
-import { Avatar, List, Button, Pagination} from 'antd';
+import { List, Button, Pagination} from 'antd';
 import { StarOutlined, SmileOutlined, HeartOutlined, SearchOutlined } from '@ant-design/icons';
 
 
@@ -20,19 +21,12 @@ const RecipeIndex = props=>{
     const [totalItems, setTotalItems] = useState();
     const [currentPage, setCurrentPage] = useState(defaultCurrent);
     const [pageSize, setPageSize] = useState(defaultPageSize);
+
     // get ingredient list
     useEffect(()=>{
 
-        axios.get(`/api/recipe/total`)
-        .then(result=>{              
-            console.log(result.data.data)
-            setTotalItems(result.data.data)
-        })
-        .catch(error=>console.log(error));
-
         axios.get(`/api/recipe?perPage=${pageSize}&page=${currentPage}`)
-        .then(result=>{              
-
+        .then(result=>{          
             result.data.data.forEach(element => {
                 element.isInPlanner=false;
                 if(props.recipePlannerList.filter((a)=>a._id == element._id).length == 0){
@@ -40,44 +34,42 @@ const RecipeIndex = props=>{
                 }else{
                     element.isInPlanner=true;
                 }
-                
             });
-            
             setRecipeList(result.data.data);
+            setTotalItems(result.data.total)
         })
         .catch(error=>console.log(error));
        
      },[addToPlannerResult, currentPage, pageSize]);
     
     
-
+    // handle adding to grocery planner
     const handleAdd=(currentRecipe)=>{
         props.getRecipeDetail(currentRecipe)
         .then(result => {
-            console.log("XXX" , result);
             let arr = props.recipePlannerList;
             arr.push(result)
             console.log(arr);
             props.setRecipePlannerList(arr)
             console.log(props.recipePlannerList)
             setAddToPlannerResult(result)
-
         })
         .catch(error=>console.log(error))
     }
 
+    // handle on click and navigate to recipe detail
     const handleOnClick=(currentRecipe)=>{
         props.getRecipeDetail(currentRecipe)
         .then(result => {
             props.navCurrentRecipe(result)
         })
         .catch(error=>console.log(error))
-
     }
 
 
 
     return (<>
+        <h2>Recipe Index</h2>
     
         <List
             itemLayout="horizontal"
@@ -88,7 +80,7 @@ const RecipeIndex = props=>{
                 <Button onClick={()=>{props.handleRemove(item);setAddToPlannerResult(item)}} type="dashed">Remove from Planner</Button>:
                 <Button onClick={()=>{handleAdd(item)}}>Add to Planner</Button> } 
             >
-                <List.Item.Meta className="truncate" onClick={() =>{handleOnClick(item)} }
+                <List.Item.Meta className="truncate" onClick={() =>{handleOnClick(item)} } style={{cursor: "pointer"}}
                 avatar={icons[item.type]}
                 title={item.name}
                 description={item.description}
@@ -110,8 +102,6 @@ const RecipeIndex = props=>{
             defaultPageSize={defaultPageSize}
             defaultCurrent={defaultCurrent}
         />
-        
-            
         }
     </>)
 };

@@ -1,4 +1,4 @@
-//this component should display a list of all playlists, fetched from the API
+// This component is used to show a modal form to create new ingredient
 import React from 'react';
 import axios from 'axios';
 
@@ -10,9 +10,9 @@ const { useState } = React;
 //https://codesandbox.io/s/6wkkjwzw3k?file=/index.js:354-1330
 
 const CreateIngredient =  (props) => {
+    // state for handling modal form
     const [form] = Form.useForm();
     const [open, setOpen] = React.useState(false);
-
     const [confirmLoading, setConfirmLoading] = useState(false);
 
     const showModal = () => {
@@ -22,8 +22,7 @@ const CreateIngredient =  (props) => {
     const handleCreate = () => {
       setConfirmLoading(true); // loading animation
       console.log(form.getFieldsValue());
-
-
+      // Create new ingredient
       axios.post('/api/ingredient', {name:name, description:description, type:type}, {  headers: {'Content-Type': 'application/json'}})
       .then(results => {
           props.setIngredientSubmitResult(results);
@@ -34,15 +33,26 @@ const CreateIngredient =  (props) => {
           form.resetFields();
       })
       .catch(error=>{
-        console.log("error",error)
+        // catch error, format error message and show in modal
         setResultModalContent(error.message)
-        setResultModalDetail(JSON.stringify(error.response.data))
-        setIsResultModalOpen(true)
-        setConfirmLoading(false);
+        let err=error.response.data
+        try {// format mongoose error
+          setResultModalDetail(Object.keys(err.errors).map(key => `<li>${key}: ${err.errors[key].message}</li>`))
+        }
+        catch{
+            if (Array.isArray(err)){// format ajv
+              setResultModalDetail(Object.keys(err).map(key => `<li>${key}: ${err[key].message}</li>`))
+            } else{
+              setResultModalDetail(JSON.stringify(err))
+            }
+        } 
+        setIsResultModalOpen(true);
+        console.log("error",error)
       })
 
     };
 
+    // state for handling result modal
     const [isResultModalOpen, setIsResultModalOpen] = useState(false);
     const [modalResultContent, setResultModalContent] = useState("");
     const [modalResultDetail, setResultModalDetail] = useState("");
@@ -72,7 +82,6 @@ const CreateIngredient =  (props) => {
 
     // State for Ingredient Type List
     const [typeList, setTypeList] = useState(["meat", "vegetables", "other"]);
-    //!!!###??? add API to get Type List
     
 	return (<>
       <Button onClick={showModal} type="link" style={{position:"absolute", bottom:"-15px", right:"0", background:""}}>

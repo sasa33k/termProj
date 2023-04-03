@@ -66,7 +66,7 @@ let RecipeSchema = new Schema(
         type: String,
         required: true,
         minlength:3,
-        maxlength:30
+        maxlength:50
     },
     image:{
         type: String,

@@ -1,5 +1,5 @@
+// This component allow adding steps correspond to a recipe (used in create recipe page)
 import React from 'react';
-const { useEffect } = React;
 
 import { Form, Input, Button, Space } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
@@ -7,7 +7,7 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 // Reference: https://codesandbox.io/s/heuristic-roentgen-mu0ot?file=/src/GroupForm.js
 const StepList  = ( { setStepList, recipeForm}) => {
-    const onChange = (event) => {
+    const onChange = () => {
         console.log(recipeForm.getFieldValue('steps'));
         let steps = recipeForm.getFieldValue('steps').map(step=>step.step);
         console.log(steps);
@@ -24,7 +24,7 @@ const StepList  = ( { setStepList, recipeForm}) => {
                     rules={[{ required: true, message: 'Please enter a step' }]}>
                         <Input placeholder={"Step "+(index+1)} onChange={onChange}/>
                     </Form.Item>
-                    <MinusCircleOutlined onClick={() => remove(field.name)} style={{ width:"10%", height:"min-content", padding:"10px"}}/>
+                    <MinusCircleOutlined onClick={() => {remove(field.name);onChange()}} style={{ width:"10%", height:"min-content", padding:"10px"}}/>
                 </Space.Compact>
                 ))}
                 <Form.Item>
@@ -45,10 +45,4 @@ const StepList  = ( { setStepList, recipeForm}) => {
   };
 
 
-// Checkbox.propTypes = {
-//     type: PropTypes.string,
-//     name: PropTypes.string.isRequired,
-//     checked: PropTypes.bool,
-//     onChange: PropTypes.func.isRequired,
-//   }
 export default StepList;

@@ -1,4 +1,4 @@
-//this component should display a list of all playlists, fetched from the API
+//this component is used to create comment for a paticular recipe
 import React from 'react';
 import axios from 'axios';
 import ResultModal from './ResultModal';
@@ -8,26 +8,34 @@ const { TextArea } = Input;
 
 const { useState } = React;
 //https://ant.design/components/modal
-//https://codesandbox.io/s/6wkkjwzw3k?file=/index.js:354-1330
 
 const CreateComment =  (props) => {
     const [form] = Form.useForm();
 
     const handleCreate = () => {
-      console.log("xx", {name:name, comment:comment, rating:rate})
-
+      // Post Comment
       axios.post(`/api/comment/${props.recipeId}`, {name:name, comment:comment, rating:rate}, {  headers: {'Content-Type': 'application/json'}})
       .then(results => {
           console.log("post comment: ", results)
           props.setCommentSubmitResult(results);
       })
       .catch(error=>{
-        
+        // catch error, format error message and show in modal
         setModalContent(error.message)
-        setModalDetail(JSON.stringify(error.response.data))
+        let err=error.response.data
+        try {// format mongoose error
+            setModalDetail(Object.keys(err.errors).map(key => `<li>${key}: ${err.errors[key].message}</li>`))
+        }
+        catch{
+            if (Array.isArray(err)){// format ajv
+                setModalDetail(Object.keys(err).map(key => `<li>${key}: ${err[key].message}</li>`))
+            } else{
+                setModalDetail(JSON.stringify(err))
+            }
+        } 
         setIsModalOpen(true);
-        console.log("error",error)})
-
+        console.log("error",error);
+      })
     };
 
 
@@ -48,7 +56,7 @@ const CreateComment =  (props) => {
       setRate(value);
     }
 
-  
+    // state for handling result modal
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState("");
     const [modalDetail, setModalDetail] = useState("");
@@ -80,7 +88,6 @@ const CreateComment =  (props) => {
 
         <Button type="primary" htmlType="submit">Submit Comment</Button>
       </Form>
-
     </div>); 
 };
 export default CreateComment;

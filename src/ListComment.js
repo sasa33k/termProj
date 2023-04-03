@@ -1,16 +1,14 @@
+// This component lists comments of a recipe (used in Recipe Detail page)
 import React from 'react';
 import axios from 'axios';
 const { useState, useEffect } = React;
 import { Card, Rate } from 'antd';
 
-
-
-// Reference: https://codesandbox.io/s/heuristic-roentgen-mu0ot?file=/src/GroupForm.js
 const CommentList  = ( props) => {
     const [comments, setComments] = useState();
 
     useEffect(()=>{
-        console.log("Xx ",props.recipeId)
+
         axios.get(`/api/comment/${props.recipeId}`)
         .then(result=>{              
             console.log(result.data.data);

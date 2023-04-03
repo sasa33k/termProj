@@ -1,9 +1,7 @@
+// This component is used to create summary grocery planner list (with javascripts) from recipes stored in state
 import React from 'react';
-import axios from 'axios';
-import CreateComment from './CreateComment';
-import CommentList from './ListComment'
 const { useState , useEffect } = React;
-import { Typography, Card, Button, List, Table, Image, Space } from 'antd';
+import { Typography, Card, Table, Image, Space } from 'antd';
 const { Meta } = Card;
 import { StarOutlined, SmileOutlined, HeartOutlined, SearchOutlined, PlayCircleOutlined, MinusCircleOutlined } from '@ant-design/icons';
 
@@ -44,10 +42,7 @@ const columns = [
 ]
 
 
-const GroceryPlanner = props=>{ 
-    const [triggerPlanner, setTriggerPlanner] = useState(false);
-    const [commentSubmitResult, setCommentSubmitResult] = useState("");
-    
+const GroceryPlanner = props=>{    
     // To group ingredients by their name, quantity and unit using reduce(), 
     // then combines the quantities for each group
     const quantitiesByIngredientUnit = props.recipePlannerList.reduce((result, obj) => {
@@ -62,7 +57,7 @@ const GroceryPlanner = props=>{
         return result;
       }, []);
 
-      // Format the quantities as desired
+    // Format the quantities as desired
     const quantitiesByIngredient = {};
     quantitiesByIngredientUnit.forEach(({ key, ingredientName, ingredientType, ingredientDesc, quantity, unit }) => {
     if (!quantitiesByIngredient[key]) {
@@ -81,11 +76,11 @@ const GroceryPlanner = props=>{
 
     return ( <>
 
-        <h1>Your Grocery List</h1>
+        <h2>Your Grocery List</h2>
 
         <Table header={<div>Ingredients</div>} dataSource={formatedTableData}  columns={columns}  pagination={false} />
 
-        <h1>Selected Recipes</h1>
+        <h2>Selected Recipes</h2>
         {props.recipePlannerList.length==0?<p>Please select recipes from our Recipe Index!</p>:""}
 
         <Space size={[8, 16]} wrap>
@@ -101,8 +96,7 @@ const GroceryPlanner = props=>{
                 actions={[
                     <PlayCircleOutlined key="nav" onClick={()=>{props.navCurrentRecipe(recipe)}}/>,
                     <MinusCircleOutlined key="remove" onClick={()=>{props.handleRemove(recipe)}} />,
-                ]}
-            >
+                ]}>
                 <Meta className="truncate" style={{ height: 80}} 
                     title={recipe.name} 
                     description={recipe.description} 

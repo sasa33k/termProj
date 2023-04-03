@@ -1,4 +1,4 @@
-//this component should display a list of all playlists, fetched from the API
+//this component should display a model showing results of an operation
 import React from 'react';
 import {  Modal } from 'antd';
 // https://ant.design/components/form
