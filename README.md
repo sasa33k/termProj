@@ -45,7 +45,7 @@ Implement a robust recipe management system that allows users to create, rate, a
         - for same unit, the number will be summed together (e.g. 5 gram + 10 gram will be displayed as 15 gram)
         - for different unit, the quantity will be shown with a plus sign (e.g. 5 gram + 3 tbsp)
 
-#User Guide
+# User Guide
 - Want to find a recipe? go to our ~Recipe Index~!
     - Click on a row to navigate to the ~Recipe Detail~ Page.
         - You can give your ~Comments~ here for this recipe!
@@ -105,25 +105,25 @@ node app.js
 
 
 # Supplementary Technical Information
-# BACKEND - Node / Express / Mongoose / AJV validation
-## app.js - main entry
-## db - connection to MongoDB Atlas
-## Models - storing mongoose data schema and rules
-- Recipe Data Model: Key data model used in this site
-- Comment: as embeded subdocuments under Recipe Data Model
-- Ingredient: Referenced by Recipe Data Model, include ingredient specific description
-- RecipeIngredient: a sub model storing reference to ingreditent, correspoinding unit and quantity, when creating recipe
-## routes - routes for different API categories
-## controllers - logics to handle data request and responses
-## validators - AJV validation rules
-- fully implemented for comments
-- implemented on name field only for recipe and ingredient creation
+## BACKEND - Node / Express / Mongoose / AJV validation
+- app.js - main entry
+- db - connection to MongoDB Atlas
+- Models - storing mongoose data schema and rules
+    - Recipe Data Model: Key data model used in this site
+    - Comment: as embeded subdocuments under Recipe Data Model
+    - Ingredient: Referenced by Recipe Data Model, include ingredient specific description
+    - RecipeIngredient: a sub model storing reference to ingreditent, correspoinding unit and quantity, when creating recipe
+- routes - routes for different API categories
+- controllers - logics to handle data request and responses
+- validators - AJV validation rules
+    - fully implemented for comments
+    - implemented on name field only for recipe and ingredient creation
 
-# FRONTEND - React / Axios
-## index.js main entry
-## src - React components, css
-- index.js - handle page navigation by mounting / unmounting components
-## public - files packaged by webpack and actually serve to client
+## FRONTEND - React / Axios
+- index.js main entry
+- src - React components, css
+    - index.js - handle page navigation by mounting / unmounting components
+- public - files packaged by webpack and actually serve to client
 
 
 # References
