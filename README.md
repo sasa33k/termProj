@@ -2,7 +2,10 @@
 A recipe sharing platform that offers an engaging user experience, incorporating a grocery planning feature that summarizes ingredient lists to streamline grocery shopping. 
 Implement a robust recipe management system that allows users to create, rate, and share their own recipes.
 
-[Click Here](https://prussian-blue-elephant-vest.cyclic.app) to view the sample site 
+[Click Here](https://prussian-blue-elephant-vest.cyclic.app) to view the sample site (Cyclic)
+[Backup site url(OnRender)](https://two600-sliu010.onrender.com)
+
+
 
 # Target Audience:   
 - Busy Professions, Students, Home Cooks, 
@@ -102,6 +105,7 @@ node app.js
 • Expected POST body format;
 • Examples on how to use each endpoint;
 - Please refer to [Swagger Documentation](https://prussian-blue-elephant-vest.cyclic.app/api-docs)
+[Backup swagger url(OnRender)](https://two600-sliu010.onrender.com/api-docs)
 
 
 # Supplementary Technical Information
