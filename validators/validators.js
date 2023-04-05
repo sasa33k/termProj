@@ -31,7 +31,7 @@ const commentValidator = (req, res, next) => {
 	validate(req.body);
 
 	if(validate.errors != null) {
-		res.status(500).json(validate.errors);
+		res.status(403).json(validate.errors);
 	} else {
 		next(); 
 	}
@@ -59,7 +59,7 @@ const ingredientValidator = (req, res, next) => {
 	validate(req.body);
 
 	if(validate.errors != null) {
-		res.status(500).json(validate.errors);
+		res.status(403).json(validate.errors);
 	} else {
 		next(); 
 	}
@@ -89,7 +89,7 @@ const recipeValidator = (req, res, next) => {
 	validate(req.body);
 
 	if(validate.errors != null) {
-		res.status(500).json(validate.errors);
+		res.status(403).json(validate.errors);
 	} else {
 		next(); 
 	}

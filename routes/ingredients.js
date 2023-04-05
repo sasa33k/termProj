@@ -23,6 +23,16 @@ const {getIngredientById, getIngredients, createIngredient} = require('../contro
  *    responses:
  *      200:
  *        description: Data retrieved
+ *        content:
+ *          application/json:
+ *              example:
+ *                data:
+ *                  _id: 641e3def8a148960f8a69ae8
+ *                  name: Pork
+ *                  description: from Pig
+ *                  type: meat
+ *      500:
+ *        description: server error
  */
 router.get('/:id', getIngredientById);
 
@@ -35,6 +45,24 @@ router.get('/:id', getIngredientById);
  *    responses:
  *      200:
  *        description: Data retrieved
+ *        content:
+ *          application/json:
+ *              example:
+ *                data:
+ *                  - _id: vegetables
+ *                    ingredients:
+ *                      - _id: 641e71f6a9b7c2542c8af51c
+ *                        name: Bak Choi
+ *                        description: Chinese Vegetables
+ *                        type: vegetables
+ *                  - _id: meat
+ *                    ingredients:
+ *                      - _id: 641e3def8a148960f8a69ae8
+ *                        name: Pork
+ *                        description: from Pig
+ *                        type: meat
+ *      500:
+ *        description: server error
  */
 router.get('/', getIngredients);
 
@@ -52,7 +80,20 @@ router.get('/', getIngredients);
  *            $ref: '#/components/schemas/Ingredient'
  *    responses:
  *      200:
- *        description: The ingredient was created
+ *        description: Data created
+ *        content:
+ *          application/json:
+ *              example:
+ *                data:
+ *                  name: Pork
+ *                  description: from Pig
+ *                  type: meat
+ *                  _id: 641e3def8a148960f8a69ae8
+ *                url: /api/ingredient/641e3def8a148960f8a69ae8
+ *      403: 
+ *        description: Forbidden, validation failure
+ *      500:
+ *        description: server error
  */
 router.post('/',ingredientValidator, createIngredient);
 

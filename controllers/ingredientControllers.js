@@ -31,10 +31,14 @@ const createIngredient = (req,res) => {
     let ingredient = new Ingredient(req.body); 
     ingredient.save()
     .then(result=>{
-        res.set('content-location', `${req.originalUrl}/${result._id}`);
-        res.status(201).json({ data: ingredient, url:`${req.originalUrl}/${result._id}`});
+        res.set('content-location', `${req.originalUrl}`);
+        res.status(201).json({ data: ingredient, url:`${req.originalUrl}`});
     }) 
-    .catch(error=>{res.status(500).send(error)});
+    .catch(error=>{
+        if(error.name == "ValidationError"){
+            res.status(403).send(error)
+        }
+        res.status(500).send(error)});
     
 };
 

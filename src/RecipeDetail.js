@@ -11,7 +11,7 @@ const{ Title, Text, Link} = Typography;
 const icons = [];
 icons["main"] = <StarOutlined />;
 icons["side"] = <SmileOutlined />;
-icons["desert"] = <HeartOutlined />;
+icons["dessert"] = <HeartOutlined />;
 icons["other"] = <SearchOutlined />;
 
 const columns = [

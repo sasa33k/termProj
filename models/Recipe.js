@@ -28,7 +28,7 @@ const { RecipeIngredientSchema } = require("./RecipeIngredient");
  *           description: base64 image
  *         type:
  *           type: string
- *           enum: ['main','side','desert','other']
+ *           enum: ['main','side','dessert','other']
  *           description: Recipe type
  *         description:
  *           type: string
@@ -37,8 +37,10 @@ const { RecipeIngredientSchema } = require("./RecipeIngredient");
  *           type: number
  *           description: Cooking time in minute, >=0
  *         ingredient:
- *           type: ObjectId of Ingredient
- *           description: Reference to Ingredient table
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/RecipeIngredient'
+ *           description: Corresponding ingredient and quantity for the recipe
  *         step:
  *           type: array
  *           items:
@@ -54,7 +56,10 @@ const { RecipeIngredientSchema } = require("./RecipeIngredient");
  *         type: side
  *         description: Great for beginner!
  *         cookingTimeInMinute: 3
- *         ingredient: ["x12sd","d2125"]
+ *         ingredient: 
+ *           - ingredient: 641e71f6a9b7c2542c8af51c
+ *             quantity: 100 
+ *             unit: gram
  *         step: ["Break an egg", "Fry it"]
  *         comments: []
  */
@@ -72,7 +77,7 @@ let RecipeSchema = new Schema(
         type: String,
         required: false,
     },
-    type: {type: String, enum : ['main','side','desert','other'], required: true, default: 'other'},
+    type: {type: String, enum : ['main','side','dessert','other'], required: true, default: 'other'},
     description:{
         type: String,
         required: false,

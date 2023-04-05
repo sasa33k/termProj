@@ -20,7 +20,17 @@ const {commentValidator} = require('../validators/validators.js');
  *        description: The id of recipe
  *    responses:
  *      200:
- *        description: The ingredient was created
+ *        description: Data Retrieved
+ *        content:
+ *          application/json:
+ *              example:
+ *                data:
+ *                    - name: sss
+ *                      comment: nice!
+ *                      rating: 3
+ *                      _id: 641fff30a2a3fc8ac91d3715
+ *      500:
+ *        description: Server error
  */
 router.get('/:id', getCommentsOfRecipeById);
 
@@ -28,7 +38,7 @@ router.get('/:id', getCommentsOfRecipeById);
  * @openapi
  * /api/comment/{id}:
  *   post:
- *    summary: Get Comments of a recipe.
+ *    summary: Add a Comment to specified recipe.
  *    tags: [Comment] 
  *    parameters:
  *      - in: path
@@ -44,8 +54,33 @@ router.get('/:id', getCommentsOfRecipeById);
  *          schema:
  *            $ref: '#/components/schemas/Comment'
  *    responses:
- *      200:
+ *      201:
  *        description: The comment was created
+ *        content:
+ *          application/json:
+ *              example:
+ *                data:
+ *                  _id: 642ce5dec1f331f17781d173
+ *                  name: Fry Egg
+ *                  type: main
+ *                  description: Great for beginner!
+ *                  cookingTimeInMinute: 3
+ *                  ingredient:
+ *                    - ingredient: 641e71f6a9b7c2542c8af51c
+ *                      quantity: 100
+ *                      unit: gram
+ *                      _id: 642ce5dec1f331f17781d174
+ *                  step: ["Break an egg", "Fry it"]
+ *                  comments:
+ *                    - name: Alex
+ *                      comment: Great!
+ *                      rating: 5
+ *                      _id: 642cea9004ef14aecb3d9841
+ *                url: /api/comment/641e3e638a148960f8a69aee/642cea9004ef14aecb3d9841
+ *      403: 
+ *        description: Forbidden, validation failure
+ *      500:
+ *        description: Server error
  */
 router.post('/:id', commentValidator, addCommentToRecipeById);
 

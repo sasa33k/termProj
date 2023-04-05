@@ -54,7 +54,11 @@ const createRecipe = (req,res) => {
         res.set('content-location', `${req.originalUrl}/${result._id}`);
         res.status(201).json({ data: recipe, url:`${req.originalUrl}/${result._id}`});
     }) 
-    .catch(error=>{res.status(500).send(error)});
+    .catch(error=>{
+        if(error.name == "ValidationError"){
+            res.status(403).send(error)
+        }
+        res.status(500).send(error)});
     
 };
 

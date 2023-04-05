@@ -55,8 +55,7 @@ const CreateRecipe = props=>{
     const [ingredientList, setIngredientList] = useState([""]);
 
     // State for Recipe Type List
-    const [typeList, setTypeList] = useState([ "main", "side", "desert", "other" ]);
-    //!!!###??? add API to get Type List
+    const [typeList, setTypeList] = useState([ "main", "side", "dessert", "other" ]);
 
     // handle form submission
     const submitRecipe = async (values) => { 
