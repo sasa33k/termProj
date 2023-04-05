@@ -37,7 +37,7 @@ const App = props=>{
 
     // function to get recipe detail shared by multiple pages
     const getRecipeDetail = async (currentRecipe) => {
-        return axios.get(`/api/recipe/${currentRecipe.type}/${currentRecipe._id}`)
+        return axios.get(`/api/v1/recipe/${currentRecipe.type}/${currentRecipe._id}`)
         .then(result => {
           const formattedIngredients = result.data.data.ingredient.map(({ ingredient, ...rest }) => ({
             ...rest,

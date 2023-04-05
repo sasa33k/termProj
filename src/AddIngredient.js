@@ -42,7 +42,7 @@ const IngredientList  = ( { setIngredientList, ingredientSubmitResult, setIngred
     // get ingredient list
     useEffect(()=>{
 
-      axios.get(`/api/ingredient`)
+      axios.get(`/api/v1/ingredient`)
       .then(result=>{
           const arr = []
           result.data.data.forEach(element => {

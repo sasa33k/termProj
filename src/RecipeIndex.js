@@ -25,7 +25,7 @@ const RecipeIndex = props=>{
     // get ingredient list
     useEffect(()=>{
 
-        axios.get(`/api/recipe?perPage=${pageSize}&page=${currentPage}`)
+        axios.get(`/api/v1/recipe?perPage=${pageSize}&page=${currentPage}`)
         .then(result=>{          
             result.data.data.forEach(element => {
                 element.isInPlanner=false;

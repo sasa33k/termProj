@@ -23,7 +23,7 @@ const CreateIngredient =  (props) => {
       setConfirmLoading(true); // loading animation
       console.log(form.getFieldsValue());
       // Create new ingredient
-      axios.post('/api/ingredient', {name:name, description:description, type:type}, {  headers: {'Content-Type': 'application/json'}})
+      axios.post('/api/v1/ingredient', {name:name, description:description, type:type}, {  headers: {'Content-Type': 'application/json'}})
       .then(results => {
           props.setIngredientSubmitResult(results);
           console.log("post", results)

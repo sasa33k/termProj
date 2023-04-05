@@ -65,7 +65,7 @@ const CreateRecipe = props=>{
             console.log('Success:', values);
             
             // create recipe
-            axios.post(`/api/Recipe/${type}`, {name:name, description:description, image:img, cookingTimeInMinute:cookingTimeInMinute, ingredient:ingredientList , step:stepList.length==1&&stepList[0].length==0?[]:stepList}, 
+            axios.post(`/api/v1/Recipe/${type}`, {name:name, description:description, image:img, cookingTimeInMinute:cookingTimeInMinute, ingredient:ingredientList , step:stepList.length==1&&stepList[0].length==0?[]:stepList}, 
             {  headers: {'Content-Type': 'application/json'}})
             .then(results => {
                 props.setRecipeSubmitResult(results);

@@ -14,7 +14,7 @@ const CreateComment =  (props) => {
 
     const handleCreate = () => {
       // Post Comment
-      axios.post(`/api/comment/${props.recipeId}`, {name:name, comment:comment, rating:rate}, {  headers: {'Content-Type': 'application/json'}})
+      axios.post(`/api/v1/comment/${props.recipeId}`, {name:name, comment:comment, rating:rate}, {  headers: {'Content-Type': 'application/json'}})
       .then(results => {
           console.log("post comment: ", results)
           props.setCommentSubmitResult(results);

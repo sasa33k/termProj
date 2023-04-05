@@ -7,7 +7,7 @@ const {commentValidator} = require('../validators/validators.js');
 
 /**
  * @openapi
- * /api/comment/{id}:
+ * /api/v1/comment/{id}:
  *   get:
  *    summary: Get Comments of a recipe.
  *    tags: [Comment]
@@ -36,7 +36,7 @@ router.get('/:id', getCommentsOfRecipeById);
 
 /**
  * @openapi
- * /api/comment/{id}:
+ * /api/v1/comment/{id}:
  *   post:
  *    summary: Add a Comment to specified recipe.
  *    tags: [Comment] 
@@ -76,7 +76,7 @@ router.get('/:id', getCommentsOfRecipeById);
  *                      comment: Great!
  *                      rating: 5
  *                      _id: 642cea9004ef14aecb3d9841
- *                url: /api/comment/641e3e638a148960f8a69aee/642cea9004ef14aecb3d9841
+ *                url: /api/v1/comment/641e3e638a148960f8a69aee/642cea9004ef14aecb3d9841
  *      403: 
  *        description: Forbidden, validation failure
  *      500:

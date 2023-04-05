@@ -6,7 +6,7 @@ const {getRecipeById, getRecipes, createRecipe} = require('../controllers/recipe
 
 /**
  * @openapi
- * /api/recipe/{type}/{id}:
+ * /api/v1/recipe/{type}/{id}:
  *   get:
  *    summary: Get a recipe based on its ID & type.
  *    tags: [Recipe]
@@ -57,7 +57,7 @@ router.get('/:type/:id', getRecipeById);
 
 /**
  * @openapi
- * /api/recipe/{type}:
+ * /api/v1/recipe/{type}:
  *   get:
  *    summary: Get an array of recipes based on specified recipe type.
  *    tags: [Recipe]
@@ -88,7 +88,7 @@ router.get('/:type', getRecipes);
 
 /**
  * @openapi
- * /api/recipe/{type}:
+ * /api/v1/recipe/{type}:
  *   post:
  *    summary: Create a new recipe of specified recipe type.
  *    tags: [Recipe]
@@ -124,7 +124,7 @@ router.get('/:type', getRecipes);
  *                  step: ["Break an egg", "Fry it"]
  *                  comments: []
  *                  _id: 642ce5dec1f331f17781d173
- *                url: /api/recipe/main/642ce5dec1f331f17781d173
+ *                url: /api/v1/recipe/main/642ce5dec1f331f17781d173
  *      403: 
  *        description: Forbidden, validation failure
  *      500:
@@ -146,7 +146,7 @@ router.post('/:type',recipeValidator, createRecipe);
 
 /**
  * @openapi
- * /api/recipe/:
+ * /api/v1/recipe/:
  *   get:
  *    summary: Get an array of all recipies.
  *    tags: [Recipe]

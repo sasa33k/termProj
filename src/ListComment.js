@@ -9,7 +9,7 @@ const CommentList  = ( props) => {
 
     useEffect(()=>{
 
-        axios.get(`/api/comment/${props.recipeId}`)
+        axios.get(`/api/v1/comment/${props.recipeId}`)
         .then(result=>{              
             console.log(result.data.data);
             setComments(result.data.data);

@@ -9,7 +9,7 @@ const {getIngredientById, getIngredients, createIngredient} = require('../contro
 
 /**
  * @openapi
- * /api/ingredient/{id}:
+ * /api/v1/ingredient/{id}:
  *   get:
  *    summary: Get an ingredient by its ID
  *    tags: [Ingredient]
@@ -38,7 +38,7 @@ router.get('/:id', getIngredientById);
 
 /**
  * @openapi
- * /api/ingredient:
+ * /api/v1/ingredient:
  *   get:
  *    summary: Get a list of all ingredients
  *    tags: [Ingredient]
@@ -68,7 +68,7 @@ router.get('/', getIngredients);
 
 /**
  * @openapi
- * /api/ingredient:
+ * /api/v1/ingredient:
  *   post:
  *    summary: Add a new ingredient to the database
  *    tags: [Ingredient]
@@ -89,7 +89,7 @@ router.get('/', getIngredients);
  *                  description: from Pig
  *                  type: meat
  *                  _id: 641e3def8a148960f8a69ae8
- *                url: /api/ingredient/641e3def8a148960f8a69ae8
+ *                url: /api/v1/ingredient/641e3def8a148960f8a69ae8
  *      403: 
  *        description: Forbidden, validation failure
  *      500:

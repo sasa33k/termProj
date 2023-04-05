@@ -47,4 +47,4 @@ app.use(express.json({limit: '10mb'}));
 
 
 const router = require("./routes/index.js");
-app.use('/api', router);
+app.use('/api/v1', router);
