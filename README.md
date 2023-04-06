@@ -94,11 +94,6 @@ npm run build
 node app.js
 ```
 
-# References
-- link
-    - file names & line
-
-
 # API documentation 
 • Endpoints and methods with a brief description of each;
 • Response format;
