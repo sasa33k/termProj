@@ -16,7 +16,7 @@ const {getRecipeById, getRecipes, createRecipe} = require('../controllers/recipe
  *        schema:
  *          type: string
  *        required: true
- *        description: The type of recipe
+ *        description: The type of recipe [ main, side, dessert, other ]
  *      - in: path
  *        name: id
  *        schema:
@@ -98,7 +98,7 @@ router.get('/:type', getRecipes);
  *        schema:
  *          type: string
  *        required: true
- *        description: The type of recipe
+ *        description: The type of recipe [ main, side, dessert, other ]
  *    requestBody:
  *      required: true
  *      content:

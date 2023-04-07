@@ -22,8 +22,8 @@ const addCommentToRecipeById = (req,res) => {
         result.comments.push(comment);
         result.save()
         .then(result=>{
-            res.set('content-location', `${req.originalUrl}/${result._id}`);
-            res.status(201).json({ data: result, url:`${req.originalUrl}/${result._id}`});
+            res.set('content-location', `${req.originalUrl}`);
+            res.status(201).json({ data: result, url:`${req.originalUrl}`});
         }).catch(error=>{res.status(500).json(error)});
     })
     .catch(error=>{
