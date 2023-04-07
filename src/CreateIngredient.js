@@ -47,6 +47,7 @@ const CreateIngredient =  (props) => {
             }
         } 
         setIsResultModalOpen(true);
+        setConfirmLoading(false);
         console.log("error",error)
       })
 
@@ -73,7 +74,7 @@ const CreateIngredient =  (props) => {
         setDescription(event.target.value);
     }
     // State for Ingredient Type
-    const [type, setType] = useState("");
+    const [type, setType] = useState("other");
     const changeType = value => { 
       console.log(value);
         setType(value);
@@ -105,7 +106,7 @@ const CreateIngredient =  (props) => {
           </Form.Item>
 
           <Form.Item label="Category" name="ingredient-category">
-                <Select onChange={event=>changeType(event)}>
+                <Select defaultValue={type} value={type} onChange={event=>changeType(event)}>
                     {typeList !=undefined? typeList.map((option) => (
                         <Select.Option key={option} value={option}>{option}</Select.Option>
                     )):''}

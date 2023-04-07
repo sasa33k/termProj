@@ -35,10 +35,13 @@ const createIngredient = (req,res) => {
         res.status(201).json({ data: ingredient, url:`${req.originalUrl}/${result._id}`});
     }) 
     .catch(error=>{
+        
         if(error.name == "ValidationError"){
             res.status(403).send(error)
+        }else{
+            res.status(500).send(error)};
         }
-        res.status(500).send(error)});
+    );
     
 };
 

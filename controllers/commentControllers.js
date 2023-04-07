@@ -29,8 +29,10 @@ const addCommentToRecipeById = (req,res) => {
     .catch(error=>{
         if(error.name == "ValidationError"){
             res.status(403).send(error)
+        }else{
+            res.status(500).send(error)};
         }
-        res.status(500).json(error)});
+    );
     
 };
 

@@ -57,9 +57,10 @@ const createRecipe = (req,res) => {
     .catch(error=>{
         if(error.name == "ValidationError"){
             res.status(403).send(error)
+        }else{
+            res.status(500).send(error)};
         }
-        res.status(500).send(error)});
-    
+    )
 };
 
 module.exports = {getRecipeById, getRecipes, createRecipe};
